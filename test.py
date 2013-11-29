@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from monad import do
 from maybe import Maybe, Just, Nothing
+from list import List
 
 
 def lookup(list_, el):
@@ -27,11 +28,21 @@ def search123do(list_):
        '"%d %d %d" % (x, y, z)')
 
 
+def double_double(*list_):
+    return \
+    List(*list_) >> (lambda x:
+    2 * [x]) >> (lambda x:
+    [2 * x])
+
+
 if __name__ == '__main__':
-    # Without do-notation
+    print("-- Maybe monad")
     print(search123([5, 4, 3, 2, 1]))
     print(search123([5, 4, 3, 1]))
 
-    # With do-notation
+    print("\n-- Maybe monad with do-notation")
     print(search123do([5, 4, 3, 2, 1]))
     print(search123do([5, 4, 3, 1]))
+
+    print("\n-- List monad")
+    print(double_double(1, 2, 3, 4, 5))
