@@ -10,9 +10,10 @@ class Monad(object):
     def bind(self, f):
         raise NotImplementedError
 
-    @staticmethod
-    def ret(object_):
-        raise NotImplementedError
+    @classmethod
+    def ret(clazz, object_):
+        # Override if necessary
+        return clazz(object_)
 
 
 def do(*args):
