@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from monad import do
-from maybe import Maybe, Just, Nothing
-from list import List
+from monad.maybe import Maybe, Just, Nothing
+from monad.list import List
 
 
 def lookup(list_, el):
