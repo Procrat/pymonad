@@ -9,7 +9,7 @@ class LogMonad(Monad):
 
     def bind(self, f):
         fn = f(self.obj)
-        fn.logs.extend(self.logs)
+        fn.logs[:0] = self.logs
         return fn
 
     @staticmethod
