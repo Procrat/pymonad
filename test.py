@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from monad import do
-from monad.maybe import Maybe, Just, Nothing
 from monad.list import List
+from monad.log import LogMonad, log
+from monad.maybe import Maybe, Just, Nothing
 
 
 def lookup(list_, el):
@@ -35,6 +36,14 @@ def double_double(*list_):
     [2 * x])
 
 
+def log_example():
+    return \
+    LogMonad(7) >> (lambda x:
+    LogMonad(x + 5, '+ 5')) >> \
+    log('Logging the life, yo') >> (lambda y:
+    LogMonad(y / 2, '/ 2'))
+
+
 if __name__ == '__main__':
     print("-- Maybe monad")
     print(search123([5, 4, 3, 2, 1]))
@@ -46,3 +55,7 @@ if __name__ == '__main__':
 
     print("\n-- List monad")
     print(double_double(1, 2, 3, 4, 5))
+
+    print("\n-- Log monad")
+    log_m = log_example()
+    print("Result: %s, Logs: %s" % (log_m.obj, log_m.logs))
