@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from math import sqrt
+
 from monad import do
+from monad.chance import ChanceMonad
 from monad.list import List
 from monad.log import LogMonad, log
 from monad.maybe import Maybe, Just, Nothing
@@ -44,18 +47,28 @@ def log_example():
     LogMonad(y / 2, '/ 2'))
 
 
+def floor_sqrt_distribution(dist):
+    return \
+    ChanceMonad(dist) >> (lambda x:
+    {int(sqrt(x)): 1})
+
+
 if __name__ == '__main__':
-    print("-- Maybe monad")
+    print('-- Maybe monad')
     print(search123([5, 4, 3, 2, 1]))
     print(search123([5, 4, 3, 1]))
 
-    print("\n-- Maybe monad with do-notation")
+    print('\n-- Maybe monad with do-notation')
     print(search123do([5, 4, 3, 2, 1]))
     print(search123do([5, 4, 3, 1]))
 
-    print("\n-- List monad")
+    print('\n-- List monad')
     print(double_double(1, 2, 3, 4, 5))
 
-    print("\n-- Log monad")
+    print('\n-- Log monad')
     log_m = log_example()
-    print("Result: %s, Logs: %s" % (log_m.obj, log_m.logs))
+    print('Result: %s, Logs: %s' % (log_m.obj, log_m.logs))
+
+    print('\n-- Chance monad')
+    dist = {x: 1 / 10 for x in range(10)}
+    print(floor_sqrt_distribution(dist).probs)
