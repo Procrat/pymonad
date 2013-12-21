@@ -3,9 +3,9 @@
 from math import sqrt
 
 from monad import do
-from monad.chance import ChanceMonad
+from monad.probability import Probability
 from monad.list import List
-from monad.log import LogMonad, log
+from monad.log import Log, log
 from monad.maybe import Maybe, Just, Nothing
 
 
@@ -41,15 +41,15 @@ def double_double(*list_):
 
 def log_example():
     return \
-    LogMonad(7) >> (lambda x:
-    LogMonad(x + 5, '+ 5')) >> \
+    Log(7) >> (lambda x:
+    Log(x + 5, '+ 5')) >> \
     log('Logging the life, yo') >> (lambda y:
-    LogMonad(y / 2, '/ 2'))
+    Log(y / 2, '/ 2'))
 
 
 def floor_sqrt_distribution(dist):
     return \
-    ChanceMonad(dist) >> (lambda x:
+    Probability(dist) >> (lambda x:
     {int(sqrt(x)): 1})
 
 
@@ -69,6 +69,6 @@ if __name__ == '__main__':
     log_m = log_example()
     print('Result: %s, Logs: %s' % (log_m.obj, log_m.logs))
 
-    print('\n-- Chance monad')
+    print('\n-- Probability monad')
     dist = {x: 1 / 10 for x in range(10)}
     print(floor_sqrt_distribution(dist).probs)

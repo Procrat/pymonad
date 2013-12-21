@@ -3,7 +3,7 @@
 from monad import Monad
 
 
-class LogMonad(Monad):
+class Log(Monad):
     def __init__(self, obj, log=None):
         self.obj = obj
         self.logs = [log] if not log is None else []
