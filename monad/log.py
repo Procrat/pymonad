@@ -1,8 +1,9 @@
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from monad import Monad
 
-class LogMonad(Monad):
 
+class LogMonad(Monad):
     def __init__(self, obj, log=None):
         self.obj = obj
         self.logs = [log] if not log is None else []
@@ -16,6 +17,6 @@ class LogMonad(Monad):
     def ret(obj):
         return LogMonad(obj)
 
+
 def log(message):
     return (lambda x: LogMonad(x, message))
-

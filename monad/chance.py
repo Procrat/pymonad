@@ -1,9 +1,10 @@
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from collections import defaultdict
 from monad import Monad
 
-class ChanceMonad(Monad):
 
+class ChanceMonad(Monad):
     def __init__(self, probs):
         self.probs = probs
 
@@ -13,4 +14,3 @@ class ChanceMonad(Monad):
             for noutcome, nprob in f(outcome).items():
                 chances[noutcome] += nprob * prob
         return ChanceMonad(chances)
-
