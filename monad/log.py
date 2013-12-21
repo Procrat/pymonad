@@ -13,10 +13,6 @@ class Log(Monad):
         fn.logs[:0] = self.logs
         return fn
 
-    @staticmethod
-    def ret(obj):
-        return LogMonad(obj)
-
 
 def log(message):
-    return (lambda x: LogMonad(x, message))
+    return (lambda x: Log(x, message))
