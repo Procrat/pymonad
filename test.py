@@ -3,10 +3,11 @@
 from math import sqrt
 
 from monad import do
-from monad.probability import Probability
+from monad.identity import Identity
 from monad.list import List
 from monad.log import Log, log
 from monad.maybe import Maybe, Just, Nothing
+from monad.probability import Probability
 
 
 def lookup(list_, el):
@@ -53,6 +54,13 @@ def floor_sqrt_distribution(dist):
     {int(sqrt(x)): 1})
 
 
+def do_some_arithmetic():
+    return \
+    Identity(55) >> (lambda x:
+    Identity(x / 5) >> (lambda y:
+    Identity(y * 2)))
+
+
 if __name__ == '__main__':
     print('-- Maybe monad')
     print(search123([5, 4, 3, 2, 1]))
@@ -72,3 +80,6 @@ if __name__ == '__main__':
     print('\n-- Probability monad')
     dist = {x: 1 / 10 for x in range(10)}
     print(floor_sqrt_distribution(dist).probs)
+
+    print('\n-- Identity monad')
+    print(do_some_arithmetic().obj)
